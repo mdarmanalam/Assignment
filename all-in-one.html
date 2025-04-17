@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Editable List with Dark Mode</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      transition: background 0.3s, color 0.3s;
+      background: #fff;
+      color: #000;
+      padding: 20px;
+    }
+  
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+  
+    .dark-mode {
+      background: #121212;
+      color: #f5f5f5;
+    }
+  
+    #toggle-dark {
+      margin-bottom: 15px;
+    }
+  
+    #search {
+      margin: 15px 0;
+      padding: 5px;
+      width: 50%;
+    }
+  
+    #new-item {
+      margin: 15px 0;
+      padding: 5px;
+      width: 42%;
+    }
+  
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+  
+    li {
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 5px;
+      cursor: move;
+      transition: transform 0.3s ease;
+      background: #fafafa;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  
+    .dark-mode li {
+      background: #333;
+      border-color: #555;
+    }
+  
+    input.edit {
+      padding: 5px;
+      width: 100%;
+    }
+  
+    #undo {
+      display: none;
+      margin-top: 10px;
+      color: red;
+      cursor: pointer;
+    }
+  
+    .delete-btn {
+      margin-left: 10px;
+      background: red;
+      color: white;
+      border: none;
+      padding: 5px;
+      cursor: pointer;
+    }
+  
+    #add-btn {
+      margin-left: 10px;
+      background: green;
+      color: white;
+      border: none;
+      padding: 5px;
+      cursor: pointer;
+    }
+  
+    .toggle-dark {
+      margin: 0;
+      padding: 0;
+      text-align: right;
+    }
+  
+    .search-box {
+      text-align: center;
+    }
+
+    .add-items{
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="toggle-dark"><button id="toggle-dark">Toggle Dark Mode</button></div>
+    <div class="search-box"><input type="text" id="search" placeholder="Search..." /></div>
+    <div class="add-items">
+      <input type="text" id="new-item" placeholder="Add new item..." />
+      <button id="add-btn">Add Item</button>
+    </div>
+    <div id="undo">Undo</div>
+    <ul id="list"></ul>
+  </div>
+
+  <script>
+    const list = document.getElementById('list');
+    const search = document.getElementById('search');
+    const newItemInput = document.getElementById('new-item');
+    const addBtn = document.getElementById('add-btn');
+    const undoBtn = document.getElementById('undo');
+    const toggleDark = document.getElementById('toggle-dark');
+    let removedItem = null;
+    let removedIndex = null;
+    let debounceTimeout;
+
+    const saveToLocalStorage = () => {
+      const items = [...list.children].map(li => li.querySelector('.text').textContent);
+      localStorage.setItem('items', JSON.stringify(items));
+    };
+
+    const loadFromLocalStorage = () => {
+      const items = JSON.parse(localStorage.getItem('items')) || [];
+      items.forEach(text => createListItem(text));
+    };
+
+    const createListItem = (text, index = null) => {
+      const li = document.createElement('li');
+      const span = document.createElement('span');
+      span.textContent = text;
+      span.className = 'text';
+
+      const deleteBtn = document.createElement('button');
+      deleteBtn.textContent = 'Delete';
+      deleteBtn.className = 'delete-btn';
+      deleteBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        removedIndex = [...list.children].indexOf(li);
+        removedItem = li;
+        li.remove();
+        saveToLocalStorage();
+        undoBtn.style.display = 'block';
+        setTimeout(() => undoBtn.style.display = 'none', 5000);
+      });
+
+      li.appendChild(span);
+      li.appendChild(deleteBtn);
+      li.draggable = true;
+
+      span.addEventListener('dblclick', () => {
+        const input = document.createElement('input');
+        input.value = span.textContent;
+        input.className = 'edit';
+        li.replaceChild(input, span);
+        input.focus();
+
+        const saveEdit = () => {
+          span.textContent = input.value;
+          li.replaceChild(span, input);
+          saveToLocalStorage();
+        };
+
+        input.addEventListener('blur', saveEdit);
+        input.addEventListener('keydown', e => {
+          if (e.key === 'Enter') saveEdit();
+        });
+      });
+
+      li.addEventListener('dragstart', e => {
+        e.dataTransfer.setData('text/plain', [...list.children].indexOf(li));
+      });
+
+      li.addEventListener('dragover', e => e.preventDefault());
+
+      li.addEventListener('drop', e => {
+        e.preventDefault();
+        const draggedIndex = e.dataTransfer.getData('text');
+        const draggedEl = list.children[draggedIndex];
+        list.insertBefore(draggedEl, li.nextSibling);
+        saveToLocalStorage();
+      });
+
+      if (index === null || index >= list.children.length) {
+        list.appendChild(li);
+      } else {
+        list.insertBefore(li, list.children[index]);
+      }
+    };
+
+    addBtn.addEventListener('click', () => {
+      const value = newItemInput.value.trim();
+      if (!value) return;
+      const randomIndex = Math.floor(Math.random() * (list.children.length + 1));
+      createListItem(value, randomIndex);
+      newItemInput.value = '';
+      saveToLocalStorage();
+    });
+
+    search.addEventListener('input', () => {
+      clearTimeout(debounceTimeout);
+      debounceTimeout = setTimeout(() => {
+        const query = search.value.toLowerCase();
+        [...list.children].forEach(li => {
+          li.style.display = li.querySelector('.text').textContent.toLowerCase().includes(query) ? '' : 'none';
+        });
+      }, 300);
+    });
+
+    toggleDark.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+    });
+
+    undoBtn.addEventListener('click', () => {
+      if (removedItem && removedIndex !== null) {
+        list.insertBefore(removedItem, list.children[removedIndex] || null);
+        removedItem = null;
+        removedIndex = null;
+        undoBtn.style.display = 'none';
+        saveToLocalStorage();
+      }
+    });
+
+    loadFromLocalStorage();
+  </script>
+</body>
+</html>

@@ -1,0 +1,445 @@
+<html>
+<head>
+    <style>
+        .form-container {
+            background-color: #fff;
+            width: 100%;
+            padding: 30px 20px 40px;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .form-container-head {
+            margin-bottom: 35px;
+        }
+
+        .form-container-body {}
+
+        .form-title {
+            font-size: 36px;
+            line-height: normal;
+            color: #fff;
+            margin: 0;
+            text-align: center;
+        }
+
+        .jForm {
+            line-height: normal;
+            border-radius: 10px;
+        }
+
+        .jForm * {
+            outline: none;
+        }
+
+        .jForm select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        ::-webkit-input-placeholder {
+            color: #081d31;
+            opacity: 0 !important;
+        }
+
+        ::-moz-placeholder {
+            color: #081d31;
+            opacity: 0 !important;
+        }
+
+        :-moz-placeholder {
+            color: #081d31;
+            opacity: 0 !important;
+        }
+
+        :-ms-input-placeholder {
+            color: #081d31;
+            opacity: 0 !important;
+        }
+
+        .jForm__row {
+            margin-bottom: 15px;
+            width: 100%;
+            position: relative;
+        }
+
+        .jForm__label {
+            font-size: 15px;
+            font-weight: 450;
+            color: #081d31;
+            display: inline-block;
+            margin-bottom: 3px;
+            padding: 0 10px;
+            background: #fff;
+            -webkit-transform: translateY(10px);
+            -ms-transform: translateY(10px);
+            transform: translateY(10px);
+            margin-left: 10px;
+            line-height: 0.5;
+        }
+
+        .jForm__input,
+        .jForm__textarea {
+            width: 100%;
+            color: #081d31;
+            height: 44px;
+            border-radius: 0;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            background-color: #fff;
+            border-radius: 8px;
+            border: 1px solid #000;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            width: 100%;
+            padding: 10px 16px;
+            font-size: 16px;
+            line-height: 1.2;
+        }
+
+        .jForm__select-code+.jForm__label {
+            margin-left: 97px;
+        }
+
+        .jForm__phone {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+        }
+
+        .jForm__phone select.jForm__input {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 78px;
+            opacity: 0;
+        }
+
+        .jForm__phone input.jForm__input {
+            margin-left: 87px;
+        }
+
+        .jForm__select-code {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .jForm__select-code-label {
+            font-weight: 450;
+            font-size: 15px;
+            color: #081d31;
+            display: inline-block;
+            margin-bottom: 3px;
+            padding: 0 10px;
+            background-color: #fff;
+            -webkit-transform: translateY(10px);
+            -ms-transform: translateY(10px);
+            transform: translateY(10px);
+            margin-left: 10px;
+            line-height: 0.5;
+        }
+
+        .jForm__select-value {
+            min-width: 78px;
+            max-width: 78px;
+            height: 44px;
+            padding: 10px 10px 10px 20px;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            border: 1px solid #081d31;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            text-align: center;
+            background-color: #fff;
+            margin-right: 5px;
+            box-sizing: border-box;
+            border-radius: 8px;
+            border: 1px solid #000;
+            color: #081d31;
+            font-size: 16px;
+        }
+
+        .jForm__field:has(.jForm__select):after {
+            content: " ";
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            top: 50%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 6L8 10L12 6' stroke='black' style='stroke:black;stroke:black;stroke-opacity:1;' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: cover;
+            transform: translateY(-50%);
+            right: 20;
+        }
+
+        .jForm__textarea {
+            resize: none;
+            height: 48px;
+            padding-top: 10px;
+            padding-bottom: 5px;
+            color: #081d31;
+        }
+
+        .jForm__text {
+            font-size: 14px;
+            line-height: 1.4;
+            color: #081d31;
+        }
+
+        .jForm__text p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .jForm__text a {
+            color: inherit;
+            text-decoration: underline;
+        }
+
+        .jForm__text a:hover {
+            text-decoration: none;
+        }
+
+        .checkbox-wrap label {
+            font-size: 14px;
+            margin-left: 15px;
+        }
+
+        .jForm__button {
+            background-color: #FFC500;
+            font-size: 18px;
+            text-transform: uppercase;
+            color: #000000;
+            padding: 18px 50px !important;
+            border: none;
+            width: 100%;
+            max-width: 240px;
+            line-height: 1;
+            cursor: pointer;
+            margin-top: 25px;
+            margin-left: auto;
+            margin-right: auto;
+            text-transform: uppercase;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .jForm__button:hover {
+            background-color: #f6c725;
+            color: #000000;
+            border-color: #081d31;
+        }
+
+        .jForm__error {
+            font-size: 11px;
+            line-height: normal;
+            color: #CD0D0D;
+            margin: 0;
+            margin-top: 4px;
+            position: absolute;
+            bottom: -16px;
+        }
+
+        .jForm__invalid .jForm__input,
+        .jForm__invalid .jForm__textarea {
+            border-color: #CD0D0D;
+        }
+
+        .jForm__invalid .jForm__label {
+            color: #CD0D0D;
+        }
+
+        .jForm__field.jForm__field-checkbox label{
+            font-size: 14px;
+        }
+
+        @media (min-width: 768px) {
+            .form-container {
+                max-width: 676px;
+                margin: 0 auto;
+            }
+
+            .jForm {
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+                -ms-flex-wrap: wrap;
+                flex-wrap: wrap;
+                -webkit-box-align: start;
+                -ms-flex-align: start;
+                align-items: flex-start;
+                -webkit-box-pack: justify;
+                -ms-flex-pack: justify;
+                justify-content: space-between;
+            }
+
+            .jForm__row {
+                width: calc(100% - 10px);
+            }
+
+            .jForm__row:nth-child(1),
+            .jForm__row:nth-child(2),
+            .jForm__row--full-width {
+                width: 100%;
+            }
+        }
+				
+    </style>   
+</head>
+<body>
+    <div class="form-container-body">
+        <div class="form">
+            <script src="https://f.edology.com/parseCookies.js"></script>
+            <script src="https://f.edology.com/sdk.js?hash=F-73086" id=jForm></script>            			
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+	<script>
+        $(document).ready(function ($) {      
+        var intervalJform; 
+		var isSuccess = true;	
+		var reg = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; 
+
+        intervalJform = setInterval(function () {
+            if ($('.jForm').length) {
+				$('.jForm__phone').closest('.jForm__row').find('.jForm__label').before('<div class="jForm__select-code"><label class="jForm__select-code-label">Code</label><div class="jForm__select-value">' + $('.jForm__phone select.jForm__input').val() + '</div></div>');
+                $('.jForm .jForm__button').parent().parent().before('<div id="recaptcha-container"></div><div id="recaptcha-error" style="color:#CD0D0D;font-size:14px;"></div>');
+                
+				// Render the reCAPTCHA
+				recaptchaLoadCallback();				
+				clearInterval(intervalJform);			
+				
+				$('.jForm__row').each(function () {
+					if ($(this).find('input[type="checkbox"]').length > 0 || $(this).find('.jForm__text').length > 0 || $(this).find('.jForm__button').length > 0 || $(this).find('.jForm__textarea').length > 0) {
+						$(this).addClass('jForm__row--full-width');
+					}
+				});
+				
+				$('.jForm__phone select').change(function () {
+					var countryCode = $(this).val();
+					$('.jForm__select-value').html(countryCode);
+					$('.jForm__phone select.jForm__input').val(countryCode);
+					clearInterval(intervalJform);
+				}); 
+            }
+        }, 100);
+			
+		$(document).on('click', '.jForm__button', function (e) {
+            
+            var that = $('form');
+
+            that.find('.jForm__row').each(function () {
+            
+				var input = $(this).find('.jForm__input');
+				var textArea = $(this).find('.jForm__textarea');
+				var email = $(this).find('.jForm__field input[type="email"]');
+				var phone = $(this).find('.jForm__field input[type="tel"]');
+			
+				if ($(this).find('.jForm__input').length > 0) {
+					if (input.val().trim() === "" || input.val().trim() === '') {
+					  var errorText = 'Please enter ' + $(this).find('.jForm__label').text();
+							if (!$(this).find('.jForm__error').length > 0) {
+								$(this).append('<p class="jForm__error">' + errorText.slice(0, -1) + '</p>');
+								$(this).addClass('jForm__invalid');
+							}
+				  }			 
+				}
+				
+				if ($(this).find('.jForm__textarea').length > 0) {
+				  if (textArea.val().trim() === "") {
+					  var errorText = 'Please enter ' + $(this).find('.jForm__label').text();
+							if (!$(this).find('.jForm__error').length > 0) {
+								$(this).append('<p class="jForm__error">' + errorText.slice(0, -1) + '</p>');
+								$(this).addClass('jForm__invalid');
+							}
+				  }
+				}
+				
+				if ($(this).find('.jForm__field input[type="tel"]').length > 0) {
+				  if (phone.val().trim() === "") {
+					  var errorText = 'Please enter ' + $(this).find('.jForm__label').text();
+							if (!$(this).find('.jForm__error').length > 0) {
+								$(this).append('<p class="jForm__error">' + errorText.slice(0, -1) + '</p>');
+								$(this).addClass('jForm__invalid');
+							}
+				  }
+				} 
+				
+				if ($(this).find('.jForm__field input[type="email"]').length > 0) {
+				  if (email.val().trim() === "" || reg.test(email.val()) == false) {
+					  var errorText = 'Please enter ' + $(this).find('.jForm__label').text();
+							if (!$(this).find('.jForm__error').length > 0) {
+								$(this).append('<p class="jForm__error">' + errorText.slice(0, -1) + '</p>');
+								$(this).addClass('jForm__invalid');
+							}
+				  }
+				}
+			
+			});
+            
+			if(!isSuccess){				
+				const response = grecaptcha.getResponse();
+				if (response.length === 0) {																	
+					document.getElementById("recaptcha-error").innerText = "Please complete the reCAPTCHA.";		
+					e.preventDefault();	
+					return false;
+				}			
+				document.getElementById("recaptcha-error").innerText = "";
+				return true;				
+			}
+			else {
+				setFormError();	
+			}
+
+		});
+		
+		function setFormError() {
+			var that = $('form');
+			var intervalError;
+			
+			intervalError = setInterval(function () {
+				that.find('.jForm__row').each(function () {
+					if ($(this).hasClass('jForm__invalid')) {						
+						var errorText = 'Please enter ' + $(this).find('.jForm__label').text();
+						if (!$(this).find('.jForm__error').length > 0) {
+							$(this).append('<p class="jForm__error">' + errorText.slice(0, -1) + '</p>');							
+						}												
+					} else {
+						$(this).find('.jForm__error').remove();
+						isSuccess = false;
+					}
+				})
+				clearInterval(intervalError);						
+			}, 300);
+		} 
+		
+		// Render reCAPTCHA widget
+		function recaptchaLoadCallback() {				
+			grecaptcha.render('recaptcha-container', {
+				'sitekey': '6Ld9jQArAAAAAJ_BrFvWhjmxXdYpPRRtMeMFyygL' // Your reCAPTCHA site key
+			});	
+		}
+		
+		// Function to validate reCAPTCHA response
+		function validateRecaptcha() {
+			const response = grecaptcha.getResponse();
+			if (response.length === 0) {																	
+				document.getElementById("recaptcha-error").innerText = "Please complete the reCAPTCHA.";		
+				return false;											
+			}
+			document.getElementById("recaptcha-error").innerText = "";
+			return true;										
+		}		
+    });
+   </script>		
+</body>
+</html>

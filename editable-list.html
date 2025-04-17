@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editable List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 8px;
+            border: 1px solid #ddd;
+            margin: 4px 0;
+            cursor: pointer;
+        }
+        .edit-input {
+            width: 100%;
+            padding: 6px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <ul id="editable-list">
+        <li ondblclick="editItem(this)">Item 1</li>
+        <li ondblclick="editItem(this)">Item 2</li>
+        <li ondblclick="editItem(this)">Item 3</li>
+    </ul>
+
+    <script>
+        function editItem(item) {
+            let currentText = item.innerText;
+            let input = document.createElement("input");
+            input.type = "text";
+            input.value = currentText;
+            input.className = "edit-input";
+            
+            input.onblur = function () {
+                saveItem(item, input.value);
+            };
+            
+            input.onkeydown = function (event) {
+                if (event.key === "Enter") {
+                    saveItem(item, input.value);
+                }
+            };
+            
+            item.innerHTML = "";
+            item.appendChild(input);
+            input.focus();
+        }
+
+        function saveItem(item, newValue) {
+            item.innerHTML = newValue || "(empty)";
+        }
+    </script>
+</body>
+</html>

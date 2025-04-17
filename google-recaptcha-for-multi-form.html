@@ -1,0 +1,527 @@
+<html>
+<head>
+  <style>
+    .form-container {
+      background-color: #fff;
+      width: 100%;
+      padding: 30px 20px 40px;
+      font-family: Arial, sans-serif;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    .form-container-head {
+      margin-bottom: 35px;
+    }
+
+    .form-container-body {
+
+    }
+
+    .form-title {
+      font-size: 36px;
+      line-height: normal;
+      color: #fff;
+      margin: 0;
+      text-align: center;
+    }
+
+    .jForm {
+      line-height: normal;
+    }
+
+    .jForm * {
+      outline: none;
+    }
+
+    .jForm select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+
+    ::-webkit-input-placeholder {
+      color: #081d31;
+      opacity: 0 !important;
+    }
+
+    ::-moz-placeholder {
+      color: #081d31;
+      opacity: 0 !important;
+    }
+
+    :-moz-placeholder {
+      color: #081d31;
+      opacity: 0 !important;
+    }
+
+    :-ms-input-placeholder {
+      color: #081d31;
+      opacity: 0 !important;
+    }
+
+    .jForm__row {
+      margin-bottom: 15px;
+      position: relative;
+    }
+
+    .jForm__label {
+      font-size: 15px;
+      color: #5e2751;
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 0px;
+      -webkit-transform: translateY(10px);
+      -ms-transform: translateY(10px);
+      transform: translateY(10px);
+      margin-left: 0px;
+      line-height: 0.5;
+    }
+
+    .jForm__input,
+    .jForm__textarea {
+      color: #081d31;
+      height: 48px;
+      border-radius: 0;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+      background-color: #fff;
+      border: 1px solid #081d31;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      width: 100%;
+      padding: 0 20px;
+      font-family: 'Arial', sans-serif;
+      font-size: 16px;
+      line-height: 1.2;
+    }
+
+    .jForm__select-code + .jForm__label {
+      margin-left: 87px;
+    }
+
+    .jForm__phone {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+    }
+
+    .jForm__phone select.jForm__input {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 78px;
+      opacity: 0;
+    }
+
+    .jForm__phone input.jForm__input {
+      margin-left: 87px;
+    }
+
+    .jForm__select-code {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .jForm__select-code-label {
+      font-size: 15px;
+      color: #5e2751;
+      display: inline-block;
+      margin-bottom: 16px;
+      padding: 0px;
+      -webkit-transform: translateY(10px);
+      -ms-transform: translateY(10px);
+      transform: translateY(10px);
+      margin-left: 0px;
+    }
+
+    .jForm__select-value {
+      min-width: 78px;
+      max-width: 78px;
+      height: 48px;
+      padding: 10px 10px 10px 20px;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      border: 1px solid #081d31;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      text-align: center;
+      background-color: #fff;
+      margin-right: 5px;
+      box-sizing: border-box;
+      color: #081d31;
+      font-family: 'Arial', sans-serif;
+      font-size: 16px;
+    }
+
+
+    .jForm__textarea {
+      resize: none;
+      height: 48px;
+      padding-top: 10px;
+      padding-bottom: 5px;
+      color: #081d31;
+    }
+
+    .jForm__text {
+      font-size: 12px;
+      line-height: 1.4;
+      color: rgb(85, 83, 83);
+    }
+
+    .jForm__text p {
+      margin: 0;
+      font-size: 12px;
+    }
+
+    .jForm__text a {
+      color: inherit;
+      text-decoration: underline;
+    }
+
+    .jForm__text a:hover {
+      text-decoration: none;
+    }
+
+    .checkbox-wrap label {
+      font-size: 14px;
+      margin-left: 15px;
+    }
+
+    .jForm__button {
+      background-color: #5e2751;
+      font-size: 16px;
+      text-transform: uppercase;
+      color: #fff;
+      padding: 25px 50px !important;
+      border: 0px solid #081d31;
+      width: 100%;
+      max-width: 240px;
+      line-height: 1;
+      cursor: pointer;
+      margin-top: 25px;
+      margin-left: auto;
+      margin-right: auto;
+      text-transform: uppercase;
+      display: block;
+    }
+
+    .jForm__button:hover {
+      background-color: rgb(34, 34, 34);
+      color: #fff;
+      border-color: #081d31;
+    }
+
+    .jForm__error {
+      font-size: 11px;
+      line-height: normal;
+      color: #CD0D0D;
+      margin: 0;
+      margin-top: 4px;
+      position: absolute;
+      bottom: -16px;
+    }
+
+    .jForm__invalid .jForm__input,
+    .jForm__invalid .jForm__textarea {
+      border-color: #CD0D0D;
+    }
+
+    .jForm__invalid .jForm__label {
+      color: #CD0D0D;
+    }
+
+    @media (min-width: 768px) {
+      .form-container {
+        max-width: 676px;
+        margin: 0 auto;
+      }
+
+      .jForm {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -webkit-box-align: start;
+        -ms-flex-align: start;
+        align-items: flex-start;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+      }
+
+      .jForm__row {
+        width: calc(50% - 10px);
+      }
+
+      .jForm__row:nth-child(1),
+      .jForm__row:nth-child(2),
+      .jForm__row--full-width {
+        width: 100%;
+      }
+    }
+
+    .jForm__field-checkbox label {
+      font-size: 12px;
+      line-height: 1.4;
+      color: rgb(85, 83, 83);
+    }
+
+    .jForm__field-checkbox input[type=checkbox] {
+      margin-right: 8px;
+    }
+
+    .jForm__field-checkbox {
+      line-height: 0.85;
+    }
+  </style>  
+</head>
+<body>
+<div class="form-container-body">
+  <div class="form">
+    <script src="https://f.edology.com/parseCookies.js"></script>
+    <script src="https://f.edology.com/sdk.js?hash=F-44102" id=jForm></script>
+    <!-- <script src="https://f.edology.com/sdk.js?hash=F-73681" id=jForm></script> -->
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.12.2.min.js"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<script>
+  $(document).ready(function () {
+      var isSuccess = true;      
+      var reg = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; 
+      
+      function addPhoneCode(){
+          var form = $('form');
+          var intervalJform;
+
+          intervalJform = setInterval(function () {
+            if ($('.jForm').length) {
+              $('.jForm__phone').closest('.jForm__row').find('.jForm__label').before('<div class="jForm__select-code"><label class="jForm__select-code-label">Code</label><div class="jForm__select-value">' + $('.jForm__phone select.jForm__input').val() + '</div></div>');
+              clearInterval(intervalJform);
+              $('.jForm__row').each(function () {
+                if ($(this).find('input[type="checkbox"]').length > 0 || $(this).find('.jForm__text').length > 0 || $(this).find('.jForm__button').length > 0 || $(this).find('.jForm__textarea').length > 0) {
+                  $(this).addClass('jForm__row--full-width');
+                }
+              });
+
+              $('.jForm__phone select').change(function () {        
+                var countryCode = $(this).val();
+                $('.jForm__select-value').html(countryCode);
+                $('.jForm__phone select.jForm__input').val(countryCode);
+                clearInterval(intervalJform);
+              });
+            }
+          }, 100);
+      }
+
+      function addRecaptcha() {
+          $('form:not(.recaptcha-added)').each(function () {
+              var form = $(this);
+              form.addClass('recaptcha-added'); // Prevent duplicates
+
+              // Ensure reCAPTCHA is added only once
+              if (form.find('.g-recaptcha').length === 0) {
+                  var recaptchaId = 'recaptcha-' + Math.random().toString(36).substr(2, 9); // Unique ID
+                  var recaptchaDiv = $('<div class="g-recaptcha" id="' + recaptchaId + '" data-sitekey="6Ld9jQArAAAAAJ_BrFvWhjmxXdYpPRRtMeMFyygL"></div><div>');
+                  var errorDiv = $('<div class="recaptcha-error" style="color: red; text-align: left; display: none;"></div>');
+
+                  // Insert before submit button
+                  form.find('button[type="submit"]').before(recaptchaDiv, errorDiv);
+
+                  // Render reCAPTCHA explicitly
+                  setTimeout(function () {
+                      if (typeof grecaptcha !== "undefined") {
+                          grecaptcha.render(recaptchaId, {
+                              'sitekey': '6Ld9jQArAAAAAJ_BrFvWhjmxXdYpPRRtMeMFyygL'
+                          });
+                      }
+                  }, 300);
+              }
+          });            
+      }
+
+      // Run on page load
+      addPhoneCode();
+      addRecaptcha();
+
+      // Monitor for dynamically added forms
+      var observer = new MutationObserver(function (mutations) {
+          addRecaptcha();
+      });
+
+      observer.observe(document.body, { childList: true, subtree: true });
+
+      // Validate reCAPTCHA when submit button is clicked
+      $(document).on("click", "button[type='submit']", function (e) {
+
+          var form = $(this).closest("form");
+          var recaptchaResponse = form.find('.g-recaptcha-response').val();
+          var errorDiv = form.find('.recaptcha-error');           
+
+          if (!recaptchaResponse) {
+              errorDiv.text("Please complete the reCAPTCHA.").show(); 
+              e.preventDefault(); 
+              isSuccess = false;               
+          }
+          else {
+                errorDiv.hide();
+                setFormError();
+          }
+
+          form.find('.jForm__input').each(function () {
+            let input = $(this);
+            let label = $('label[for="' + input.attr('id') + '"]');
+
+            if (label.length > 0 && label.text() === "Program*") {
+              if (input.is('select')) { 
+                    if (!input.val() && !input.hasClass('jForm__invalid')) {                           
+                        var errorText = 'Please select ' + label.text();                          
+                        input.after('<p class="jForm__error" style="color: red; margin-top: 5px;">' + errorText + '</p>');
+                        input.addClass('jForm__invalid');
+                    }
+                }                
+            }
+
+            if (label.length > 0 && label.text() === "Intended Start Month*") {
+              if (input.is('select') ) { 
+                if (!input.val() && !input.hasClass('jForm__invalid')) {                         
+                        var errorText = 'Please select ' + label.text();
+                        input.after('<p class="jForm__error" style="color: red; margin-top: 5px;">' + errorText + '</p>');
+                        input.addClass('jForm__invalid');
+                    }
+                }
+            }
+
+            if (label.length > 0 && label.text() === "Intended Start Year*") {
+              if (input.is('select')) { 
+                if (!input.val() && !input.hasClass('jForm__invalid')) {                           
+                        var errorText = 'Please select ' + label.text();
+                        input.after('<p class="jForm__error" style="color: red; margin-top: 5px;">' + errorText + '</p>');
+                        input.addClass('jForm__invalid');
+                    }
+                }
+            }
+
+            if (label.length > 0 && label.text() === "School of Interest*") {
+              if (input.is('select')) { 
+                if (!input.val() && !input.hasClass('jForm__invalid')) {                           
+                        var errorText = 'Please select ' + label.text();
+                        input.after('<p class="jForm__error" style="color: red; margin-top: 5px;">' + errorText + '</p>');
+                        input.addClass('jForm__invalid');
+                    }
+                }
+            }
+
+          });          
+
+          form.find('.jForm__row--full-width').each(function () {
+              var textArea = $(this).find('.jForm__textarea');
+              if ($(this).find('.jForm__textarea').length > 0) {
+                  if (textArea.val().trim() === "") {
+                      var errorText = 'Please enter ' + $(this).find('.jForm__label').text();
+                      if (!$(this).find('.jForm__error').length > 0) {
+                          $(this).append('<p class="jForm__error" style="color: red">' + errorText.slice(0, -1) + '</p>');
+                          $(this).addClass('jForm__invalid');
+                      }
+                  }
+              }
+          });
+
+          form.find('.jForm__row').each(function () {                
+              var input = $(this).find('.jForm__input');
+              var textArea = $(this).find('.jForm__textarea');
+              var email = $(this).find('.jForm__field input[type="email"]');
+              var phone = $(this).find('.jForm__field input[type="tel"]');                             
+
+              if ($(this).find('.jForm__input').length > 0) {
+                  if (input.val().trim() === "" || input.val().trim() === '') {
+                      var errorText = 'Please enter ' + $(this).find('.jForm__label').text();
+                      if (!$(this).find('.jForm__error').length > 0) {
+                          $(this).append('<p class="jForm__error" style="color: red">' + errorText.slice(0, -1) + '</p>');
+                          $(this).addClass('jForm__invalid');
+                      }
+                  }
+              }                                
+              
+              if ($(this).find('.jForm__textarea').length > 0) {
+                  if (textArea.val().trim() === "") {
+                      var errorText = 'Please enter ' + $(this).find('.jForm__label').text();
+                      if (!$(this).find('.jForm__error').length > 0) {
+                          $(this).append('<p class="jForm__error" style="color: red">' + errorText.slice(0, -1) + '</p>');
+                          $(this).addClass('jForm__invalid');
+                      }
+                  }
+              }
+
+              if ($(this).find('.jForm__field input[type="tel"]').length > 0) {
+                  if (phone.val().trim() === "") {
+                      var errorText = 'Please enter ' + $(this).find('.jForm__label').text();
+                      if (!$(this).find('.jForm__error').length > 0) {
+                          $(this).append('<p class="jForm__error" style="color: red">' + errorText.slice(0, -1) + '</p>');
+                          $(this).addClass('jForm__invalid');
+                      }
+                  }
+              }
+
+              if ($(this).find('.jForm__field input[type="email"]').length > 0) {
+                  if (email.val().trim() === "" || reg.test(email.val()) == false) {
+                      var errorText = 'Please enter ' + $(this).find('.jForm__label').text();
+                      if (!$(this).find('.jForm__error').length > 0) {
+                          $(this).append('<p class="jForm__error" style="color: red">' + errorText.slice(0, -1) + '</p>');
+                          $(this).addClass('jForm__invalid');
+                      }
+                  }
+              }
+           }); 
+
+          if (!isSuccess) {
+              if (!recaptchaResponse) {                    
+                  errorDiv.text("Please complete the reCAPTCHA.").show(); 
+                  e.preventDefault();
+                  isSuccess = false;
+              }
+              else {
+                  errorDiv.hide();
+              }
+          }
+          else {
+              setFormError();
+          }            
+
+      });        
+
+      function setFormError() {
+          var form = $('form');
+          var intervalError;
+
+          intervalError = setInterval(function () {
+              form.find('.jForm__row').each(function () {
+                  if ($(this).hasClass('jForm__invalid')) {
+                      var errorText = 'Please enter ' + $(this).find('.jForm__label').text();
+                      if (!$(this).find('.jForm__error').length > 0) {
+                          $(this).append('<p class="jForm__error" style="color: red">' + errorText.slice(0, -1) + '</p>');
+                      }
+                  } else {
+                      $(this).find('.jForm__error').remove();
+                      isSuccess = false;
+                  }
+              })
+              clearInterval(intervalError);
+          }, 300);
+      }
+
+  });
+</script>
+
+</body>
+
+</html>

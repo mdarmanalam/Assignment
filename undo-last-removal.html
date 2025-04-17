@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Undo Last Removal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      background: #f0f0f0;
+      margin: 5px 0;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 5px;
+    }
+    .undo-container {
+      margin-top: 20px;
+      display: none;
+    }
+    .undo-container.show {
+      display: block;
+    }
+    .btn {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .btn.remove {
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Task List</h2>
+  <ul id="itemList">
+    <li>Task 1 <button class="btn remove" onclick="removeItem(this)">❌</button></li>
+    <li>Task 2 <button class="btn remove" onclick="removeItem(this)">❌</button></li>
+    <li>Task 3 <button class="btn remove" onclick="removeItem(this)">❌</button></li>
+  </ul>
+
+  <div id="undoContainer" class="undo-container">
+    <button class="btn" onclick="undoRemove()">Undo</button>
+  </div>
+
+  <script>
+    let lastRemoved = null;
+    let undoTimeout = null;
+
+    function removeItem(button) {
+      const li = button.parentElement;
+      lastRemoved = {
+        element: li,
+        index: Array.from(li.parentNode.children).indexOf(li)
+      };
+      li.remove();
+
+      showUndo();
+    }
+
+    function showUndo() {
+      const undo = document.getElementById('undoContainer');
+      undo.classList.add('show');
+
+      if (undoTimeout) clearTimeout(undoTimeout);
+      undoTimeout = setTimeout(() => {
+        undo.classList.remove('show');
+        lastRemoved = null;
+      }, 5000); // 5 seconds
+    }
+
+    function undoRemove() {
+      if (!lastRemoved) return;
+
+      const list = document.getElementById('itemList');
+      const { element, index } = lastRemoved;
+      const items = list.children;
+
+      if (index >= items.length) {
+        list.appendChild(element);
+      } else {
+        list.insertBefore(element, items[index]);
+      }
+
+      lastRemoved = null;
+      document.getElementById('undoContainer').classList.remove('show');
+      clearTimeout(undoTimeout);
+    }
+  </script>
+
+</body>
+</html>

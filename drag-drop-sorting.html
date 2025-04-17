@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Drag and Drop Sorting</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      width: 300px;
+    }
+
+    li {
+      padding: 12px 20px;
+      margin: 8px 0;
+      background-color: #f0f0f0;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      cursor: grab;
+    }
+
+    .dragging {
+      opacity: 0.5;
+    }
+
+    .drag-over {
+      border: 2px dashed #000;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Drag and Drop Sortable List</h2>
+  <ul id="sortable-list">
+    <li draggable="true">🍎 Apple</li>
+    <li draggable="true">🍌 Banana</li>
+    <li draggable="true">🍇 Grape</li>
+    <li draggable="true">🍊 Orange</li>
+    <li draggable="true">🍉 Watermelon</li>
+  </ul>
+
+  <script>
+    const list = document.getElementById('sortable-list');
+    let draggedItem = null;
+
+    list.addEventListener('dragstart', (e) => {
+      draggedItem = e.target;
+      e.target.classList.add('dragging');
+    });
+
+    list.addEventListener('dragend', (e) => {
+      e.target.classList.remove('dragging');
+    });
+
+    list.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      const afterElement = getDragAfterElement(list, e.clientY);
+      const dragging = document.querySelector('.dragging');
+      if (afterElement == null) {
+        list.appendChild(dragging);
+      } else {
+        list.insertBefore(dragging, afterElement);
+      }
+    });
+
+    function getDragAfterElement(container, y) {
+      const draggableElements = [...container.querySelectorAll('li:not(.dragging)')];
+
+      return draggableElements.reduce((closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > closest.offset) {
+          return { offset: offset, element: child };
+        } else {
+          return closest;
+        }
+      }, { offset: Number.NEGATIVE_INFINITY }).element;
+    }
+  </script>
+
+</body>
+</html>
