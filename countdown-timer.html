@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Countdown Timer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+      background-color: #f0f2f5;
+    }
+
+    .timer {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    input[type="number"] {
+      padding: 8px;
+      font-size: 18px;
+      width: 100px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 5px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .controls {
+      margin-top: 20px;
+    }
+
+    .extra-controls {
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>COUNTDOWN TIMER</h1>
+  
+  <div class="timer" id="display">00:00</div>
+
+  <input type="number" id="timeInput" placeholder="Seconds" min="1" />
+
+  <div class="extra-controls">
+    <button onclick="startTimerFromInput()">Start</button>
+    <button onclick="togglePauseResume()" id="pauseBtn">Pause</button>
+    <button onclick="resetTimer()">Reset</button>
+  </div>  
+
+  <div class="controls">
+    <button onclick="addTime(10)">10s</button>
+    <button onclick="addTime(30)">30s</button>
+    <button onclick="addTime(60)">60s</button>
+    <button onclick="addTime(90)">90s</button>
+    <button onclick="addTime(300)">+5min</button>
+    <button onclick="addTime(600)">+10min</button>
+  </div>  
+
+  <script>
+    let timer;
+    let remainingTime = 0;
+    let isRunning = false;
+    let isPaused = false;
+
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+      const secs = (seconds % 60).toString().padStart(2, '0');
+      return `${mins}:${secs}`;
+    }
+
+    function updateDisplay() {
+      document.getElementById('display').textContent = formatTime(remainingTime);
+    }
+
+    function startCountdown() {
+      if (isRunning) return;
+      isRunning = true;
+      isPaused = false;
+      document.getElementById('pauseBtn').textContent = "Pause";
+
+      timer = setInterval(() => {
+        if (remainingTime > 0) {
+          remainingTime--;
+          updateDisplay();
+        } else {
+          clearInterval(timer);
+          isRunning = false;
+          alert("Time's up!");
+        }
+      }, 1000);
+    }
+
+    function startTimerFromInput() {
+      const input = parseInt(document.getElementById('timeInput').value);
+      if (!isNaN(input) && input > 0) {
+        remainingTime = input;
+        clearInterval(timer);
+        isRunning = false;
+        isPaused = false;
+        updateDisplay();
+        startCountdown();
+      }
+    }
+
+    function addTime(secondsToAdd) {
+      remainingTime += secondsToAdd;
+      updateDisplay();
+      if (!isRunning) {
+        startCountdown();
+      }
+    }
+
+    function togglePauseResume() {
+      if (!isRunning && !isPaused) return;
+
+      if (isPaused) {
+        startCountdown();
+      } else {
+        clearInterval(timer);
+        isRunning = false;
+        isPaused = true;
+        document.getElementById('pauseBtn').textContent = "Resume";
+      }
+    }
+
+    function resetTimer() {
+      clearInterval(timer);
+      remainingTime = 0;
+      isRunning = false;
+      isPaused = false;
+      updateDisplay();
+      document.getElementById('pauseBtn').textContent = "Pause";
+    }
+  </script>
+
+</body>
+</html>

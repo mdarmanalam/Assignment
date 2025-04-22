@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Enhanced Digital Clock</title>
+  <style>
+    :root {
+      --bg-dark: #1a1a2e;
+      --bg-light: #f0f0f0;
+      --text-dark: #e0e0e0;
+      --text-light: #1a1a2e;
+      --primary: #0f3460;
+      --accent: #e94560;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      transition: background 0.5s, color 0.5s;
+    }
+
+    .clock-container {
+      text-align: center;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      background-color: var(--primary);
+    }
+
+    @media (min-width: 1024px){
+      .clock-container {
+        min-width: 665px;
+      }
+    }
+
+    .clock, .date {
+      font-size: 7rem;
+      margin: 10px 0;
+    }
+
+    .date {
+      font-size: 1.2rem;
+      opacity: 0.8;
+    }
+
+    .controls {
+      margin-top: 20px;
+    }
+
+    button {
+      background-color: var(--accent);
+      color: white;
+      padding: 10px 16px;
+      margin: 5px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #d63050;
+    }
+
+    body.light-mode {
+      background-color: var(--bg-light);
+      color: var(--text-light);
+    }
+
+    body.light-mode .clock-container {
+      background-color: white;
+      color: var(--text-light);
+    }
+
+    body.dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    body.dark-mode .clock-container {
+      background-color: var(--primary);
+      color: var(--text-dark);
+    }
+  </style>
+</head>
+<body class="dark-mode">
+
+  <div class="clock-container">
+    <div class="clock" id="clock">--:--:--</div>
+    <div class="date" id="date">Loading date...</div>
+    <div class="controls">
+      <button id="toggleFormatBtn">12 Hour Format</button>
+      <button id="toggleThemeBtn">Switch Light/Dark Mode</button>
+    </div>
+  </div>
+
+  <script>
+    let is24Hour = true;
+
+    function updateClock() {
+      const now = new Date();
+      let hours = now.getHours();
+      let minutes = now.getMinutes();
+      let seconds = now.getSeconds();
+      let session = '';
+
+      if (!is24Hour) {
+        session = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12 || 12;
+      }
+
+      hours = String(hours).padStart(2, '0');
+      minutes = String(minutes).padStart(2, '0');
+      seconds = String(seconds).padStart(2, '0');
+
+      const timeString = `${hours}:${minutes}:${seconds} ${!is24Hour ? session : ''}`;
+      document.getElementById('clock').textContent = timeString.trim();
+
+      const dateString = now.toLocaleDateString(undefined, {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+      document.getElementById('date').textContent = dateString;
+    }
+
+    document.getElementById('toggleFormatBtn').addEventListener('click', () => {
+      is24Hour = !is24Hour;
+      document.getElementById('toggleFormatBtn').textContent =
+        is24Hour ? '12 Hour Format' : '24 Hour Format';
+    });
+
+    document.getElementById('toggleThemeBtn').addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      document.body.classList.toggle('light-mode');
+    });
+
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+
+</body>
+</html>
