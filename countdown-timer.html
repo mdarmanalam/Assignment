@@ -69,6 +69,10 @@
     <button onclick="addTime(600)">+10min</button>
   </div>  
 
+  <div class="theme-controls">
+    <button onclick="changeBackground()">Change Background</button>
+  </div>
+
   <script>
     let timer;
     let remainingTime = 0;
@@ -143,6 +147,11 @@
       isPaused = false;
       updateDisplay();
       document.getElementById('pauseBtn').textContent = "Pause";
+    }
+    
+    function changeBackground() {
+      const randomColor = `hsl(${Math.floor(Math.random() * 360)}, 70%, 80%)`;
+      document.body.style.backgroundColor = randomColor;
     }
   </script>
 
